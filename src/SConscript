@@ -3,7 +3,10 @@ env = Environment(CCFLAGS = "-std=c++11 -g", CPPDEFINES=['__GXX_EXPERIMENTAL_CXX
 sources = Split("""
 application/application.cpp
 application/main.cpp
+assets/asset_loader.cpp
+factories/player_factory.cpp
 game/game.cpp
+systems/render_system.cpp
 """)
 
 objects = env.Object(source = sources)

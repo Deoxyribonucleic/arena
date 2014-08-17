@@ -1,7 +1,13 @@
 #pragma once
 
+#include "assets/asset_loader.hpp"
+#include "factories/player_factory.hpp"
+#include "systems/render_system.hpp"
+
 #include <dawn/events/event_dispatcher.hpp>
 #include <dawn/tasks/scheduler.hpp>
+#include <dawn/ecs/entity.hpp>
+#include <dawn/ecs/system.hpp>
 
 
 namespace game
@@ -24,6 +30,12 @@ namespace game
 	private:
 		application& m_app;
 
+		asset_loader m_loader;
 
+		player_factory m_player_factory;
+
+		std::vector<dawn::entity::ptr> m_entities;
+
+		render_system m_renderer;
 	};
 }
