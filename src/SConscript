@@ -1,10 +1,11 @@
-env = Environment(CCFLAGS = "-std=c++11 -g", CPPDEFINES=['__GXX_EXPERIMENTAL_CXX0X__'], CPPPATH = ".",)
+env = Environment(CCFLAGS = "-std=c++11 -g", CPPDEFINES=['__GXX_EXPERIMENTAL_CXX0X__'], CPPPATH = [".", "../depend/dawn/src"], LIBPATH = ["../depend/dawn/build"])
 
 sources = Split("""
 application/application.cpp
 application/main.cpp
+game/game.cpp
 """)
 
 objects = env.Object(source = sources)
 
-game = env.Program(target = "arena", source = objects, LIBS = ["sfml-graphics", "sfml-window", "sfml-system"])
+game = env.Program(target = "arena", source = objects, LIBS = ["dawn-tasks", "dawn-events", "dawn-ecs", "sfml-graphics", "sfml-window", "sfml-system"])

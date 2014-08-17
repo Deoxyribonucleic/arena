@@ -1,12 +1,16 @@
 #include "application.hpp"
 
+#include "events/sfml_event.hpp"
+
 #include <iostream>
 
 
 using namespace game;
 
 application::application()
-: m_window(sf::VideoMode(800, 600), "Project Arena")
+:
+m_window(sf::VideoMode(800, 600), "Project Arena"),
+m_game(*this)
 {
 
 }
@@ -16,9 +20,19 @@ application::~application()
 
 }
 
-sf::Window& application::get_window()
+sf::RenderWindow& application::get_window()
 {
 	return m_window;
+}
+
+dawn::event_dispatcher& application::get_event_dispatcher()
+{
+	return m_event_dispatcher;
+}
+
+dawn::scheduler& application::get_scheduler()
+{
+	return m_scheduler;
 }
 
 void application::run()
@@ -32,9 +46,12 @@ void application::run()
 			{
 				m_window.close();
 			}
+			else
+			{
+				m_event_dispatcher.notify(sfml_event(event));
+			}
 		}
 
-		m_window.clear();
-		m_window.display();
+		m_scheduler.tick();
 	}
 }
