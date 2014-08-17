@@ -1,0 +1,10 @@
+env = Environment(CCFLAGS = "-std=c++11 -g", CPPDEFINES=['__GXX_EXPERIMENTAL_CXX0X__'], CPPPATH = ".",)
+
+sources = Split("""
+application/application.cpp
+application/main.cpp
+""")
+
+objects = env.Object(source = sources)
+
+game = env.Program(target = "arena", source = objects, LIBS = ["sfml-graphics", "sfml-window", "sfml-system"])
