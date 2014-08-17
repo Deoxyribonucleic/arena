@@ -1,0 +1,7 @@
+build/
+.sconsign.dblite
+doxygen/
+.project
+.cproject
+.clang_complete
+
