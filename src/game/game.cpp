@@ -12,7 +12,8 @@ game::game::game(application& app)
 m_app(app),
 m_loader("assets"),
 m_player_factory(m_loader),
-m_renderer(m_app.get_window())
+m_renderer(m_app.get_window()),
+m_controller_system(*this)
 {
 	m_app.get_scheduler().schedule_task(std::chrono::seconds(1/60),
 		std::bind(&game::game::update, this), true);
@@ -60,7 +61,7 @@ void game::game::update()
 
 void game::game::render()
 {
-	m_app.get_window().clear(sf::Color(0, 25, 0));
+	m_app.get_window().clear(sf::Color(180, 180, 255));
 
 	m_renderer.update(m_entities);
 

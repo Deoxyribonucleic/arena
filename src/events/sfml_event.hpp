@@ -2,7 +2,7 @@
 
 #include <dawn/events/event.hpp>
 
-#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
 
 
 namespace game
