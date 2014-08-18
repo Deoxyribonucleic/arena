@@ -9,7 +9,7 @@ using namespace game;
 
 application::application()
 :
-m_window(sf::VideoMode(800, 600), "Project Arena"),
+m_window(sf::VideoMode(1280, 800), "Project Arena"),
 m_game(*this)
 {
 

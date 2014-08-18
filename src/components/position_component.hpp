@@ -2,13 +2,15 @@
 
 #include <dawn/ecs/component.hpp>
 
+#include <glm/glm.hpp>
+
 
 namespace game
 {
 	class position_component : public dawn::component
 	{
 	public:
-		position_component(float x, float y) : x(x), y(y) {}
-		float x, y;
+		position_component(const glm::vec2& position) : position(position) {}
+		glm::vec2 position;
 	};
 }

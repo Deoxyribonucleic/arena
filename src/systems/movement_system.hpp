@@ -6,10 +6,10 @@
 namespace game
 {
 	class game;
-	class controller_system : public dawn::system
+	class movement_system : public dawn::system
 	{
 	public:
-		controller_system(game& game);
+		movement_system();
 
 	protected:
 		void update_entity(dawn::entity& entity);

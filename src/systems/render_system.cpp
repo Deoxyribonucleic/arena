@@ -21,8 +21,8 @@ render_system::render_system(sf::RenderWindow& render_target)
 void render_system::update_entity(dawn::entity& entity)
 {
 	entity.get_component<render_component>().sprite.setPosition(
-		entity.get_component<position_component>().x,
-		entity.get_component<position_component>().y
+		entity.get_component<position_component>().position.x,
+		entity.get_component<position_component>().position.y
 	);
 
 	m_render_target.draw(entity.get_component<render_component>().sprite);
