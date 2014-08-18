@@ -6,6 +6,7 @@ application/main.cpp
 assets/asset_loader.cpp
 factories/player_factory.cpp
 game/game.cpp
+systems/controller_system.cpp
 systems/render_system.cpp
 """)
 

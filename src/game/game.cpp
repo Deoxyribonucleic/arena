@@ -55,6 +55,7 @@ application& game::game::get_application()
 
 void game::game::update()
 {
+	m_controller_system.update(m_entities);
 }
 
 void game::game::render()

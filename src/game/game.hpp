@@ -3,6 +3,7 @@
 #include "assets/asset_loader.hpp"
 #include "factories/player_factory.hpp"
 #include "systems/render_system.hpp"
+#include "systems/controller_system.hpp"
 
 #include <dawn/events/event_dispatcher.hpp>
 #include <dawn/tasks/scheduler.hpp>
@@ -37,5 +38,6 @@ namespace game
 		std::vector<dawn::entity::ptr> m_entities;
 
 		render_system m_renderer;
+		controller_system m_controller_system;
 	};
 }
