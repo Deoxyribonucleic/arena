@@ -1,4 +1,4 @@
-env = Environment(CCFLAGS = "-std=c++11 -g", CPPDEFINES=['__GXX_EXPERIMENTAL_CXX0X__'], CPPPATH = [".", "../depend/dawn/src"], LIBPATH = ["../depend/dawn/build"])
+env = Environment(CCFLAGS = "-std=c++11 -g -O0", CPPDEFINES=['__GXX_EXPERIMENTAL_CXX0X__'], CPPPATH = [".", "../depend/dawn/src"], LIBPATH = ["../depend/dawn/build"])
 
 sources = Split("""
 application/application.cpp
@@ -7,6 +7,7 @@ assets/asset_loader.cpp
 factories/player_factory.cpp
 game/game.cpp
 systems/controller_system.cpp
+systems/debug_info_system.cpp
 systems/movement_system.cpp
 systems/render_system.cpp
 """)

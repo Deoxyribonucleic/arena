@@ -5,6 +5,7 @@
 #include "components/movement_component.hpp"
 #include "components/position_component.hpp"
 #include "components/render_component.hpp"
+#include "components/player_component.hpp"
 
 #include <glm/glm.hpp>
 
@@ -20,6 +21,7 @@ dawn::entity::ptr player_factory::create(const std::string& name)
 {
 	dawn::entity::ptr entity(new dawn::entity);
 
+	entity->add_component<player_component>(1);
 	entity->add_component<controller_component>();
 	entity->add_component<position_component>(glm::vec2(100, 100));
 	entity->add_component<movement_component>(glm::vec2(0, 0), 2.0, 0.05, 0.03);

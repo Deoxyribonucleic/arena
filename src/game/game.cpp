@@ -13,12 +13,15 @@ m_app(app),
 m_loader("assets"),
 m_player_factory(m_loader),
 m_renderer(m_app.get_window()),
+m_debug_info_system(*this, m_app.get_window()),
 m_controller_system(*this)
 {
 	m_app.get_scheduler().schedule_task(std::chrono::seconds(1/60),
 		std::bind(&game::game::update, this), true);
 	m_app.get_scheduler().schedule_task(std::chrono::seconds(1/60),
 		std::bind(&game::game::render, this), true);
+
+	m_loader.add_font(fonts::base, "fonts/UbuntuMono-Regular.ttf");
 
 	m_loader.add_texture(textures::player, "player.png");
 	m_loader.add_texture(textures::projectile, "projectile.png");
@@ -30,6 +33,8 @@ m_controller_system(*this)
 	while(!m_loader.is_loaded())
 	{
 	}
+
+	m_debug_info_system.set_font(m_loader.get_font(fonts::base));
 
 	m_entities.push_back(m_player_factory.create("Player 1"));
 }
@@ -54,6 +59,11 @@ application& game::game::get_application()
 	return m_app;
 }
 
+asset_loader& game::game::get_asset_loader()
+{
+	return m_loader;
+}
+
 void game::game::update()
 {
 	m_controller_system.update(m_entities);
@@ -65,6 +75,7 @@ void game::game::render()
 	m_app.get_window().clear(sf::Color(180, 180, 255));
 
 	m_renderer.update(m_entities);
+	m_debug_info_system.update(m_entities);
 
 	m_app.get_window().display();
 }

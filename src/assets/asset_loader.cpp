@@ -1,5 +1,6 @@
 #include "asset_loader.hpp"
 
+#include <cassert>
 #include <iostream>
 
 
@@ -11,6 +12,13 @@ m_root(root),
 m_loaded(true)
 {
 
+}
+
+void asset_loader::add_font(fonts::font name, const std::string& file)
+{
+	std::lock_guard<std::mutex> guard(m_lock);
+	m_fonts_to_load.push_back(std::pair<fonts::font, std::string>(name, file));
+	m_loaded = false;
 }
 
 void asset_loader::add_texture(textures::texture name, const std::string& file)
@@ -30,6 +38,16 @@ void asset_loader::add_sprite(sprites::sprite name, textures::texture texture)
 void asset_loader::load()
 {
 	std::lock_guard<std::mutex> guard(m_lock);
+
+	// fonts
+	for(auto& font: m_fonts_to_load)
+	{
+		if(!font_exists(font.first))
+		{
+			m_fonts[font.first].loadFromFile(m_root + "/" + font.second);
+		}
+	}
+	m_fonts_to_load.clear();
 
 	// textures
 	for(auto& texture: m_textures_to_load)
@@ -59,6 +77,11 @@ bool asset_loader::is_loaded()
 	return m_loaded;
 }
 
+sf::Font& asset_loader::get_font(fonts::font name)
+{
+	return m_fonts[name];
+}
+
 sf::Texture& asset_loader::get_texture(textures::texture name)
 {
 	return m_textures[name];
@@ -67,6 +90,11 @@ sf::Texture& asset_loader::get_texture(textures::texture name)
 sf::Sprite& asset_loader::get_sprite(sprites::sprite name)
 {
 	return m_sprites[name];
+}
+
+bool asset_loader::font_exists(fonts::font name)
+{
+	return m_fonts.find(name) != m_fonts.end();
 }
 
 bool asset_loader::texture_exists(textures::texture name)
