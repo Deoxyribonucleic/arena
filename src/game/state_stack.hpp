@@ -21,6 +21,8 @@ namespace game
 		void update();
 		void render();
 
+		void force_stack_update();
+
 	private:
 		enum stack_operation_type
 		{
@@ -39,7 +41,7 @@ namespace game
 		typedef std::vector<std::unique_ptr<state>> state_group;
 
 		state_group& get_state_group(bool new_group);
-		state_group& create_state_group();
+		void create_state_group();
 
 		void do_operations();
 		void do_pop_state();

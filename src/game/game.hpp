@@ -2,11 +2,6 @@
 
 #include "state_stack.hpp"
 #include "assets/asset_loader.hpp"
-#include "factories/player_factory.hpp"
-#include "systems/render_system.hpp"
-#include "systems/controller_system.hpp"
-#include "systems/movement_system.hpp"
-#include "systems/debug_info_system.hpp"
 
 #include <dawn/events/event_dispatcher.hpp>
 #include <dawn/tasks/scheduler.hpp>
@@ -29,6 +24,7 @@ namespace game
 		application& get_application();
 
 		asset_loader& get_asset_loader();
+		state_stack& get_state_stack();
 
 		void update();
 		void render();
@@ -38,13 +34,6 @@ namespace game
 
 		asset_loader m_loader;
 
-		player_factory m_player_factory;
-
-		std::vector<dawn::entity::ptr> m_entities;
-
-		controller_system m_controller_system;
-		debug_info_system m_debug_info_system;
-		movement_system m_movement_system;
-		render_system m_renderer;
+		state_stack m_state_stack;
 	};
 }

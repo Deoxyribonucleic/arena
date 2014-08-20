@@ -3,6 +3,7 @@
 #include "application/application.hpp"
 #include "events/sfml_event.hpp"
 #include "state_stack.hpp"
+#include "states/test_state.hpp"
 
 #include <SFML/Window.hpp>
 
@@ -14,11 +15,7 @@ using namespace game;
 game::game::game(application& app)
 :
 m_app(app),
-m_loader("assets"),
-m_player_factory(m_loader),
-m_renderer(m_app.get_window()),
-m_debug_info_system(*this, m_app.get_window()),
-m_controller_system(*this)
+m_loader("assets")
 {
 	m_app.get_scheduler().schedule_task(std::chrono::seconds(1/60),
 		std::bind(&game::game::update, this), true);
@@ -38,17 +35,8 @@ m_controller_system(*this)
 	{
 	}
 
-	m_debug_info_system.set_font(m_loader.get_font(fonts::base));
-
-	m_entities.push_back(m_player_factory.create("Player 1"));
-
-	get_event_dispatcher().add_event_handler<sfml_event>([](sfml_event const& event)
-	{
-		if(event.get_event().type == sf::Event::JoystickButtonPressed)
-		{
-			std::cout << "Dis/connected joystick" << std::endl;
-		}
-	});
+	m_state_stack.push_state(std::unique_ptr<state>(new test_state(*this)));
+	m_state_stack.force_stack_update();
 }
 
 game::game::~game()
@@ -76,18 +64,17 @@ asset_loader& game::game::get_asset_loader()
 	return m_loader;
 }
 
+state_stack& game::game::get_state_stack()
+{
+	return m_state_stack;
+}
+
 void game::game::update()
 {
-	m_controller_system.update(m_entities);
-	m_movement_system.update(m_entities);
+	m_state_stack.update();
 }
 
 void game::game::render()
 {
-	m_app.get_window().clear(sf::Color(180, 180, 255));
-
-	m_renderer.update(m_entities);
-	m_debug_info_system.update(m_entities);
-
-	m_app.get_window().display();
+	m_state_stack.render();
 }
