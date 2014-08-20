@@ -1,5 +1,6 @@
 #pragma once
 
+#include "state_stack.hpp"
 #include "assets/asset_loader.hpp"
 #include "factories/player_factory.hpp"
 #include "systems/render_system.hpp"

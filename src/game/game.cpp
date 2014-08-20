@@ -1,6 +1,10 @@
 #include "game.hpp"
 
 #include "application/application.hpp"
+#include "events/sfml_event.hpp"
+#include "state_stack.hpp"
+
+#include <SFML/Window.hpp>
 
 #include <chrono>
 
@@ -37,6 +41,14 @@ m_controller_system(*this)
 	m_debug_info_system.set_font(m_loader.get_font(fonts::base));
 
 	m_entities.push_back(m_player_factory.create("Player 1"));
+
+	get_event_dispatcher().add_event_handler<sfml_event>([](sfml_event const& event)
+	{
+		if(event.get_event().type == sf::Event::JoystickButtonPressed)
+		{
+			std::cout << "Dis/connected joystick" << std::endl;
+		}
+	});
 }
 
 game::game::~game()
