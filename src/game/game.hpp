@@ -7,6 +7,7 @@
 #include <dawn/tasks/scheduler.hpp>
 #include <dawn/ecs/entity.hpp>
 #include <dawn/ecs/system.hpp>
+#include <dawn/time.hpp>
 
 
 namespace game
@@ -29,11 +30,19 @@ namespace game
 		void update();
 		void render();
 
+
+		float get_delta() const;
+
 	private:
+		void update_delta();
+
 		application& m_app;
 
 		asset_loader m_loader;
 
 		state_stack m_state_stack;
+
+		dawn::time::time_point m_last_update;
+		float m_delta;
 	};
 }

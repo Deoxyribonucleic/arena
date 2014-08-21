@@ -17,19 +17,11 @@ m_game(game),
 m_player_factory(m_game.get_asset_loader()),
 m_renderer(m_game.get_application().get_window()),
 m_debug_info_system(m_game, m_game.get_application().get_window()),
-m_controller_system(m_game)
+m_controller_system(m_game),
+m_movement_system(m_game)
 {
 	m_debug_info_system.set_font(m_game.get_asset_loader().get_font(fonts::base));
 	m_entities.push_back(m_player_factory.create("Player 1"));
-
-
-	m_game.get_event_dispatcher().add_event_handler<sfml_event>([](sfml_event const& event)
-	{
-		if(event.get_event().type == sf::Event::JoystickButtonPressed)
-		{
-			std::cout << "Dis/connected joystick" << std::endl;
-		}
-	});
 }
 
 test_state::~test_state()

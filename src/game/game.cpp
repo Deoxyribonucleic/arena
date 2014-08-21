@@ -15,11 +15,12 @@ using namespace game;
 game::game::game(application& app)
 :
 m_app(app),
-m_loader("assets")
+m_loader("assets"),
+m_last_update(dawn::time::clock::now())
 {
-	m_app.get_scheduler().schedule_task(std::chrono::seconds(1/60),
+	m_app.get_scheduler().schedule_task(std::chrono::milliseconds(1000/60),
 		std::bind(&game::game::update, this), true);
-	m_app.get_scheduler().schedule_task(std::chrono::seconds(1/60),
+	m_app.get_scheduler().schedule_task(std::chrono::milliseconds(1000/60),
 		std::bind(&game::game::render, this), true);
 
 	m_loader.add_font(fonts::base, "fonts/UbuntuMono-Regular.ttf");
@@ -71,10 +72,23 @@ state_stack& game::game::get_state_stack()
 
 void game::game::update()
 {
+	update_delta();
 	m_state_stack.update();
 }
 
 void game::game::render()
 {
 	m_state_stack.render();
+}
+
+void game::game::update_delta()
+{
+	auto now = dawn::time::clock::now();
+	m_delta = std::chrono::duration_cast<std::chrono::milliseconds>(now - m_last_update).count() / 1000.0f;
+	m_last_update = now;
+}
+
+float game::game::get_delta() const
+{
+	return m_delta;
 }

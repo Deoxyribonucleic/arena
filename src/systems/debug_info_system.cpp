@@ -15,7 +15,10 @@ debug_info_system::debug_info_system(game& game, sf::RenderWindow& render_target
 	{
 		return entity.has_component<player_component>() && entity.has_component<position_component>();
 	}),
-	m_render_target(render_target), m_font(nullptr)
+	m_render_target(render_target), m_font(nullptr),
+	m_fps(0),
+	m_frames_this_second(0),
+	m_last_fps_update_time(dawn::time::clock::now())
 {
 	m_text.setCharacterSize(24);
 	m_text.setColor(sf::Color(0, 0, 0));
@@ -27,20 +30,36 @@ void debug_info_system::update_entity(dawn::entity& entity)
 	auto& position = entity.get_component<position_component>().position;
 	int playerNumber = entity.get_component<player_component>().id;
 
-	m_text.setString("Player #" + std::to_string(playerNumber) + " position: " + std::to_string(position.x) + ", " + std::to_string(position.y));
-	m_text.setPosition(10, m_text_y);
-	m_render_target.draw(m_text);
-
-	m_text_y += m_font->getLineSpacing(24);
+	print_line("Player #" + std::to_string(playerNumber) + " position: " + std::to_string(position.x) + ", " + std::to_string(position.y));
 }
 
 void debug_info_system::pre_update()
 {
+	++m_frames_this_second;
+	auto now = dawn::time::clock::now();
+	if(now - m_last_fps_update_time > std::chrono::seconds(1))
+	{
+		m_fps = m_frames_this_second;
+		m_frames_this_second = 0;
+		m_last_fps_update_time = now;
+	}
+
 	m_text_y = 10;
+
+	print_line("FPS: " + std::to_string(m_fps));
 }
 
 void debug_info_system::set_font(sf::Font& font)
 {
 	m_font = &font;
 	m_text.setFont(font);
+}
+
+void debug_info_system::print_line(std::string const& string)
+{
+	m_text.setString(string);
+	m_text.setPosition(10, m_text_y);
+	m_render_target.draw(m_text);
+
+	m_text_y += m_font->getLineSpacing(24);
 }

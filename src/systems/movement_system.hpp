@@ -9,9 +9,12 @@ namespace game
 	class movement_system : public dawn::system
 	{
 	public:
-		movement_system();
+		movement_system(game& game);
 
 	protected:
 		void update_entity(dawn::entity& entity);
+
+	private:
+		game& m_game;
 	};
 }

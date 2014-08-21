@@ -1,6 +1,7 @@
 #pragma once
 
 #include <dawn/ecs/system.hpp>
+#include <dawn/time.hpp>
 
 
 namespace game
@@ -13,5 +14,9 @@ namespace game
 
 	protected:
 		void update_entity(dawn::entity& entity);
+		void pre_update();
+
+	private:
+		game& m_game;
 	};
 }

@@ -24,20 +24,19 @@ namespace game
 		float max_speed;
 		float acceleration, friction;
 
-		void accelerate(const glm::vec2& direction)
+		void accelerate(const glm::vec2& direction, float rate, float max_speed)
 		{
 			assert(glm::length(direction) != 0.0);
 
-			velocity += glm::normalize(direction) * acceleration;
-			cap_speed();
+			velocity += glm::normalize(direction) * rate;
+			cap_speed(max_speed);
 		}
 
-		void decelerate(const glm::vec2& direction, float amount)
+		void decelerate(const glm::vec2& direction, float rate)
 		{
 			assert(glm::length(direction) != 0.0);
 
-			velocity -= glm::normalize(direction) * std::min(amount, get_speed());
-			cap_speed();
+			velocity -= glm::normalize(direction) * std::min(rate, get_speed());
 		}
 
 		float get_speed() const
@@ -45,7 +44,7 @@ namespace game
 			return glm::length(velocity);
 		}
 
-		void cap_speed()
+		void cap_speed(float max_speed)
 		{
 			if(get_speed() > max_speed)
 				velocity = glm::normalize(velocity) * max_speed;

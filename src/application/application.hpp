@@ -24,6 +24,8 @@ namespace game
 		void run();
 
 	private:
+		void update_sfml();
+
 		sf::RenderWindow m_window;
 
 		dawn::event_dispatcher m_event_dispatcher;

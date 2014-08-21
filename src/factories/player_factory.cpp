@@ -24,7 +24,7 @@ dawn::entity::ptr player_factory::create(const std::string& name)
 	entity->add_component<player_component>(1);
 	entity->add_component<controller_component>();
 	entity->add_component<position_component>(glm::vec2(100, 100));
-	entity->add_component<movement_component>(glm::vec2(0, 0), 2.0, 0.05, 0.03);
+	entity->add_component<movement_component>(glm::vec2(0, 0), 200.0, 1800.0, 800.0);
 	entity->add_component<render_component>(m_loader.get_sprite(sprites::player));
 
 	return entity;
