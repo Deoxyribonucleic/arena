@@ -6,6 +6,7 @@
 #include "systems/controller_system.hpp"
 #include "systems/movement_system.hpp"
 #include "systems/debug_info_system.hpp"
+#include "systems/despawn_system.hpp"
 
 #include <dawn/ecs/entity_list.hpp>
 
@@ -31,6 +32,7 @@ namespace game
 
 		controller_system m_controller_system;
 		debug_info_system m_debug_info_system;
+		despawn_system m_despawn_system;
 		movement_system m_movement_system;
 		render_system m_renderer;
 	};

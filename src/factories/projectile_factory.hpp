@@ -15,7 +15,7 @@ namespace game
 	public:
 		projectile_factory(asset_loader& loader);
 
-		dawn::entity::ptr create(entity::ptr shooter, glm::vec2 const& direction);
+		dawn::entity::ptr create(dawn::entity::ptr shooter, glm::vec2 const& direction);
 
 	private:
 		asset_loader& m_loader;

@@ -21,6 +21,6 @@ namespace game
 		}
 
 	private:
-		const sf::Event& m_event;
+		const sf::Event m_event;
 	};
 }

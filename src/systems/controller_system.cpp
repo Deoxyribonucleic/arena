@@ -2,7 +2,7 @@
 
 #include "components/movement_component.hpp"
 #include "components/controller_component.hpp"
-
+#include "events/sfml_event.hpp"
 #include "game/game.hpp"
 
 #include <SFML/Window.hpp>
@@ -15,13 +15,22 @@
 
 using namespace game;
 
-controller_system::controller_system(game& game)
+controller_system::controller_system(game& game, dawn::entity_list& entities)
 : dawn::system([](dawn::entity::ptr entity)
 	{
 		return entity->has_component<controller_component>() && entity->has_component<movement_component>();
 	}),
-	m_game(game)
+	m_game(game),
+	m_entities(entities),
+	m_projectile_factory(m_game.get_asset_loader())
 {
+	set_event_handler<sfml_event>(m_game.get_event_dispatcher(), [this](dawn::entity::ptr entity, sfml_event const& event)
+		{
+			if(event.get_event().type == sf::Event::JoystickButtonReleased)
+			{
+				m_entities.add_entity(m_projectile_factory.create(entity, glm::vec2(1, 0)));
+			}
+		});
 }
 
 void controller_system::update_entity(dawn::entity::ptr entity)
