@@ -1,5 +1,6 @@
 #pragma once
 
+#include <dawn/ecs/entity.hpp>
 #include <dawn/ecs/system.hpp>
 #include <dawn/time.hpp>
 
@@ -19,7 +20,7 @@ namespace game
 		void set_font(sf::Font& font);
 
 	protected:
-		void update_entity(dawn::entity& entity);
+		void update_entity(dawn::entity::ptr entity);
 
 		void pre_update();
 

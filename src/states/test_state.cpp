@@ -21,7 +21,7 @@ m_controller_system(m_game),
 m_movement_system(m_game)
 {
 	m_debug_info_system.set_font(m_game.get_asset_loader().get_font(fonts::base));
-	m_entities.push_back(m_player_factory.create("Player 1"));
+	m_entities.add_entity(m_player_factory.create("Player 1"));
 }
 
 test_state::~test_state()

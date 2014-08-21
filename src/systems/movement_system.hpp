@@ -1,5 +1,6 @@
 #pragma once
 
+#include <dawn/ecs/entity.hpp>
 #include <dawn/ecs/system.hpp>
 
 
@@ -12,7 +13,7 @@ namespace game
 		movement_system(game& game);
 
 	protected:
-		void update_entity(dawn::entity& entity);
+		void update_entity(dawn::entity::ptr entity);
 
 	private:
 		game& m_game;

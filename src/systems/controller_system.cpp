@@ -16,17 +16,17 @@
 using namespace game;
 
 controller_system::controller_system(game& game)
-: dawn::system([](dawn::entity& entity)
+: dawn::system([](dawn::entity::ptr entity)
 	{
-		return entity.has_component<controller_component>() && entity.has_component<movement_component>();
+		return entity->has_component<controller_component>() && entity->has_component<movement_component>();
 	}),
 	m_game(game)
 {
 }
 
-void controller_system::update_entity(dawn::entity& entity)
+void controller_system::update_entity(dawn::entity::ptr entity)
 {
-	auto& movement = entity.get_component<movement_component>();
+	auto& movement = entity->get_component<movement_component>();
 	glm::vec2 direction;
 
 	/*if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))

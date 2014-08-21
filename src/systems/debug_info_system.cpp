@@ -11,9 +11,9 @@
 using namespace game;
 
 debug_info_system::debug_info_system(game& game, sf::RenderWindow& render_target)
-: dawn::system([](dawn::entity& entity)
+: dawn::system([](dawn::entity::ptr entity)
 	{
-		return entity.has_component<player_component>() && entity.has_component<position_component>();
+		return entity->has_component<player_component>() && entity->has_component<position_component>();
 	}),
 	m_render_target(render_target), m_font(nullptr),
 	m_fps(0),
@@ -25,10 +25,10 @@ debug_info_system::debug_info_system(game& game, sf::RenderWindow& render_target
 	m_text.setStyle(sf::Text::Regular);
 }
 
-void debug_info_system::update_entity(dawn::entity& entity)
+void debug_info_system::update_entity(dawn::entity::ptr entity)
 {
-	auto& position = entity.get_component<position_component>().position;
-	int playerNumber = entity.get_component<player_component>().id;
+	auto& position = entity->get_component<position_component>().position;
+	int playerNumber = entity->get_component<player_component>().id;
 
 	print_line("Player #" + std::to_string(playerNumber) + " position: " + std::to_string(position.x) + ", " + std::to_string(position.y));
 }

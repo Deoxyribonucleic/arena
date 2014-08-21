@@ -7,6 +7,8 @@
 #include "systems/movement_system.hpp"
 #include "systems/debug_info_system.hpp"
 
+#include <dawn/ecs/entity_list.hpp>
+
 
 namespace game
 {
@@ -25,7 +27,7 @@ namespace game
 
 		player_factory m_player_factory;
 
-		std::vector<dawn::entity::ptr> m_entities;
+		dawn::entity_list m_entities;
 
 		controller_system m_controller_system;
 		debug_info_system m_debug_info_system;
