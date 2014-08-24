@@ -7,8 +7,10 @@
 #include "components/render_component.hpp"
 #include "components/player_component.hpp"
 #include "components/lifetime_component.hpp"
+#include "components/orientation_component.hpp"
 
 #include <cassert>
+#include <iostream>
 
 
 using namespace game;
@@ -26,6 +28,7 @@ dawn::entity::ptr projectile_factory::create(dawn::entity::ptr shooter, glm::vec
 
 	entity->add_component<position_component>(shooter->get_component<position_component>().position);
 	entity->add_component<movement_component>(direction * 500.f, 0.0, 500.0, 0.0);
+	entity->add_component<orientation_component>(direction);
 	entity->add_component<render_component>(m_loader.get_sprite(sprites::projectile));
 	entity->add_component<lifetime_component>(std::chrono::seconds(2));
 

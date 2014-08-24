@@ -16,6 +16,7 @@ test_state::test_state(game& game)
 m_game(game),
 m_player_factory(m_game.get_asset_loader()),
 m_renderer(m_game.get_application().get_window()),
+m_death_system(m_game, m_entities),
 m_debug_info_system(m_game, m_game.get_application().get_window()),
 m_controller_system(m_game, m_entities),
 m_movement_system(m_game),
@@ -34,6 +35,7 @@ void test_state::update(bool)
 	m_controller_system.update(m_entities);
 	m_movement_system.update(m_entities);
 	m_despawn_system.update(m_entities);
+	m_death_system.update(m_entities);
 }
 
 void test_state::render(bool)

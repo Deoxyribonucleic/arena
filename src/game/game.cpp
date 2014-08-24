@@ -31,6 +31,9 @@ m_last_update(dawn::time::clock::now())
 	m_loader.add_sprite(sprites::player, textures::player);
 	m_loader.add_sprite(sprites::projectile, textures::projectile);
 
+	//m_loader.get_sprite(sprites::player).setOrigin(32, 40);
+	//m_loader.get_sprite(sprites::projectile).setOrigin(32, 32);
+
 	m_loader.load();
 	while(!m_loader.is_loaded())
 	{

@@ -6,6 +6,8 @@
 #include "components/position_component.hpp"
 #include "components/render_component.hpp"
 #include "components/player_component.hpp"
+#include "components/health_component.hpp"
+#include "components/orientation_component.hpp"
 
 #include <glm/glm.hpp>
 
@@ -23,9 +25,11 @@ dawn::entity::ptr player_factory::create(const std::string& name)
 
 	entity->add_component<player_component>(1);
 	entity->add_component<controller_component>();
+	entity->add_component<health_component>(100);
+	entity->add_component<orientation_component>(glm::vec2(1, 0));
 	entity->add_component<position_component>(glm::vec2(100, 100));
 	entity->add_component<movement_component>(glm::vec2(0, 0), 200.0, 1800.0, 800.0);
-	entity->add_component<render_component>(m_loader.get_sprite(sprites::player));
+	entity->add_component<render_component>(m_loader.get_sprite(sprites::player), false);
 
 	return entity;
 }
