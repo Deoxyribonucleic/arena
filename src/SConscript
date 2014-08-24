@@ -10,6 +10,7 @@ game/game.cpp
 game/state.cpp
 game/state_stack.cpp
 states/test_state.cpp
+systems/collision_system.cpp
 systems/controller_system.cpp
 systems/death_system.cpp
 systems/debug_info_system.cpp

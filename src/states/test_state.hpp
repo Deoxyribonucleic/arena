@@ -3,6 +3,7 @@
 #include "game/state.hpp"
 #include "factories/player_factory.hpp"
 #include "systems/render_system.hpp"
+#include "systems/collision_system.hpp"
 #include "systems/controller_system.hpp"
 #include "systems/movement_system.hpp"
 #include "systems/debug_info_system.hpp"
@@ -31,6 +32,7 @@ namespace game
 
 		dawn::entity_list m_entities;
 
+		collision_system m_collision_system;
 		controller_system m_controller_system;
 		death_system m_death_system;
 		debug_info_system m_debug_info_system;

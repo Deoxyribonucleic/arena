@@ -27,9 +27,13 @@ m_last_update(dawn::time::clock::now())
 
 	m_loader.add_texture(textures::player, "player.png");
 	m_loader.add_texture(textures::projectile, "projectile.png");
+	m_loader.add_texture(textures::obstacle_red, "obstacle_red.png");
+	m_loader.add_texture(textures::obstacle_black, "obstacle_black.png");
 
 	m_loader.add_sprite(sprites::player, textures::player);
 	m_loader.add_sprite(sprites::projectile, textures::projectile);
+	m_loader.add_sprite(sprites::obstacle_red, textures::obstacle_red);
+	m_loader.add_sprite(sprites::obstacle_black, textures::obstacle_black);
 
 	//m_loader.get_sprite(sprites::player).setOrigin(32, 40);
 	//m_loader.get_sprite(sprites::projectile).setOrigin(32, 32);

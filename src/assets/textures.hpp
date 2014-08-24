@@ -7,7 +7,7 @@ namespace game
 	{
 		enum texture
 		{
-			player, projectile
+			player, projectile, obstacle_red, obstacle_black
 		};
 	}
 }

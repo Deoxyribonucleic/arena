@@ -1,6 +1,7 @@
 #include "projectile_factory.hpp"
 
 #include "assets/asset_loader.hpp"
+#include "components/collision_component.hpp"
 #include "components/controller_component.hpp"
 #include "components/movement_component.hpp"
 #include "components/position_component.hpp"
@@ -31,6 +32,7 @@ dawn::entity::ptr projectile_factory::create(dawn::entity::ptr shooter, glm::vec
 	entity->add_component<orientation_component>(direction);
 	entity->add_component<render_component>(m_loader.get_sprite(sprites::projectile));
 	entity->add_component<lifetime_component>(std::chrono::seconds(2));
+	entity->add_component<collision_component>();
 
 	return entity;
 }
