@@ -9,6 +9,7 @@
 #include "components/player_component.hpp"
 #include "components/lifetime_component.hpp"
 #include "components/orientation_component.hpp"
+#include "components/projectile_component.hpp"
 
 #include <cassert>
 #include <iostream>
@@ -33,6 +34,7 @@ dawn::entity::ptr projectile_factory::create(dawn::entity::ptr shooter, glm::vec
 	entity->add_component<render_component>(m_loader.get_sprite(sprites::projectile));
 	entity->add_component<lifetime_component>(std::chrono::seconds(2));
 	entity->add_component<collision_component>();
+	entity->add_component<projectile_component>();
 
 	return entity;
 }

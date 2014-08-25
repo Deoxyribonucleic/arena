@@ -9,6 +9,8 @@
 #include "systems/debug_info_system.hpp"
 #include "systems/despawn_system.hpp"
 #include "systems/death_system.hpp"
+#include "systems/player_system.hpp"
+#include "systems/projectile_system.hpp"
 
 #include <dawn/ecs/entity_list.hpp>
 
@@ -39,5 +41,7 @@ namespace game
 		despawn_system m_despawn_system;
 		movement_system m_movement_system;
 		render_system m_renderer;
+		player_system m_player_system;
+		projectile_system m_projectile_system;
 	};
 }
