@@ -26,7 +26,7 @@ dawn::entity::ptr player_factory::create(int number, int controller_id)
 
 	entity->add_component<player_component>(number);
 	entity->add_component<controller_component>(controller_id);
-	entity->add_component<health_component>(10);
+	entity->add_component<health_component>(40);
 	entity->add_component<orientation_component>(glm::vec2(1, 0));
 	entity->add_component<position_component>(glm::vec2(100, 100));
 	entity->add_component<movement_component>(glm::vec2(0, 0), 200.0, 1800.0, 800.0);
