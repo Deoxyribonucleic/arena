@@ -23,6 +23,7 @@ void render_system::update_entity(dawn::entity::ptr entity)
 {
 	auto& sprite = entity->get_component<render_component>().get_sprite();
 	sprite.setOrigin(sprite.getTexture()->getSize().x / 2, sprite.getTexture()->getSize().y / 2);
+	sprite.setColor(entity->get_component<render_component>().tint);
 
 	sprite.setPosition(
 		entity->get_component<position_component>().position.x,
