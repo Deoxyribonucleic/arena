@@ -8,6 +8,7 @@
 #include <components/bounding_box_component.hpp>
 #include <components/position_component.hpp>
 #include <components/render_component.hpp>
+#include <components/controller_component.hpp>
 #include <components/health_component.hpp>
 
 #include <SFML/Window.hpp>
@@ -30,7 +31,8 @@ m_movement_system(m_game),
 m_despawn_system(m_entities)
 {
 	m_debug_info_system.set_font(m_game.get_asset_loader().get_font(fonts::base));
-	m_entities.add_entity(m_player_factory.create("Player 1"));
+	m_entities.add_entity(m_player_factory.create(1, 0));
+	m_entities.add_entity(m_player_factory.create(2, 1));
 
 	dawn::entity::ptr obstacle = std::make_shared<dawn::entity>();
 	obstacle->add_component<position_component>(glm::vec2(400, 250));
@@ -62,7 +64,7 @@ m_despawn_system(m_entities)
 			event.entity->remove_component<bounding_box_component>();
 			event.entity->remove_component<health_component>();
 
-			event.entity->get_component<render_component>().sprite = m_game.get_asset_loader().get_sprite(sprites::obstacle_black);
+			event.entity->get_component<render_component>().set_sprite(m_game.get_asset_loader().get_sprite(sprites::obstacle_black));
 		}
 	});
 }

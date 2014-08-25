@@ -13,7 +13,7 @@ namespace game
 	public:
 		player_factory(asset_loader& loader);
 
-		dawn::entity::ptr create(const std::string& name);
+		dawn::entity::ptr create(int number, int controller_id);
 
 	private:
 		asset_loader& m_loader;

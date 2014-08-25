@@ -27,7 +27,7 @@ controller_system::controller_system(game& game, dawn::entity_list& entities)
 {
 	set_event_handler<sfml_event>(m_game.get_event_dispatcher(), [this](dawn::entity::ptr entity, sfml_event const& event)
 		{
-			if(event.get_event().type == sf::Event::JoystickButtonReleased)
+			if(event.get_event().type == sf::Event::JoystickButtonReleased && event.get_event().joystickButton.joystickId == entity->get_component<controller_component>().controller_id)
 			{
 				m_entities.add_entity(m_projectile_factory.create(entity, entity->get_component<orientation_component>().orientation));
 			}
@@ -36,35 +36,27 @@ controller_system::controller_system(game& game, dawn::entity_list& entities)
 
 void controller_system::update_entity(dawn::entity::ptr entity)
 {
+	int controller_id = entity->get_component<controller_component>().controller_id;
+
 	auto& movement = entity->get_component<movement_component>();
 	glm::vec2 direction;
 
-	/*if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		++direction.x;
-
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		--direction.x;
-
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		++direction.y;
-
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		--direction.y;*/
-
-	direction.x = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::X) / 100.0f;
-	direction.y = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::Y) / 100.0f;
-
+	direction.x = sf::Joystick::getAxisPosition(controller_id, sf::Joystick::Axis::X) / 100.0f;
+	direction.y = sf::Joystick::getAxisPosition(controller_id, sf::Joystick::Axis::Y) / 100.0f;
 
 	if(glm::length(direction) != 0.0)
 		movement.accelerate(direction, movement.acceleration * glm::length(direction) * m_game.get_delta(), movement.max_speed);
 
 	// orientation
 	auto& orientation = entity->get_component<orientation_component>().orientation;
+	glm::vec2 new_orientation;
 
-	orientation.x = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::U) / 100.0f;
-	orientation.y = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::V) / 100.0f;
+	new_orientation.x = sf::Joystick::getAxisPosition(controller_id, sf::Joystick::Axis::U) / 100.0f;
+	new_orientation.y = sf::Joystick::getAxisPosition(controller_id, sf::Joystick::Axis::V) / 100.0f;
 
-	orientation = glm::normalize(orientation);
+	// only change aim if stick movement is more than 10%, so that it doesn't revert if the stick is released
+	if(glm::length(new_orientation) > 0.1f)
+		orientation = glm::normalize(new_orientation);
 }
 
 void controller_system::pre_update()

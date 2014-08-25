@@ -21,24 +21,24 @@ render_system::render_system(sf::RenderWindow& render_target)
 
 void render_system::update_entity(dawn::entity::ptr entity)
 {
-	auto& sprite = entity->get_component<render_component>().sprite;
+	auto& sprite = entity->get_component<render_component>().get_sprite();
 	sprite.setOrigin(sprite.getTexture()->getSize().x / 2, sprite.getTexture()->getSize().y / 2);
 
-	entity->get_component<render_component>().sprite.setPosition(
+	sprite.setPosition(
 		entity->get_component<position_component>().position.x,
 		entity->get_component<position_component>().position.y
 	);
 
 	if(entity->has_component<orientation_component>() && entity->get_component<render_component>().display_rotation)
 	{
-		entity->get_component<render_component>().sprite.setRotation(
+		sprite.setRotation(
 			entity->get_component<orientation_component>().get_degrees()
 		);
 	}
 	else
 	{
-		entity->get_component<render_component>().sprite.setRotation(0);
+		sprite.setRotation(0);
 	}
 
-	m_render_target.draw(entity->get_component<render_component>().sprite);
+	m_render_target.draw(sprite);
 }
