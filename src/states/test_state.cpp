@@ -54,7 +54,7 @@ void test_state::update(bool)
 
 void test_state::render(bool)
 {
-	m_game.get_application().get_window().clear(sf::Color(180, 180, 255));
+	m_game.get_application().get_window().clear(sf::Color(40, 40, 40));
 
 	m_renderer.update(m_entities);
 	m_debug_info_system.update(m_entities);
