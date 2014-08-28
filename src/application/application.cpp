@@ -14,8 +14,8 @@ application::application()
 m_window(sf::VideoMode(1280, 800), "Project Arena"),
 m_game(*this)
 {
-	get_scheduler().schedule_task(std::chrono::milliseconds(1000/60),
-		std::bind(&application::update_sfml, this), true);
+	//get_scheduler().schedule_task(std::chrono::milliseconds(1000/60),
+	//	std::bind(&application::update_sfml, this), true);
 }
 
 application::~application()
@@ -42,6 +42,7 @@ void application::run()
 {
 	while(m_window.isOpen())
 	{
+		update_sfml();
 		m_scheduler.tick();
 		//std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}
@@ -50,7 +51,7 @@ void application::run()
 void application::update_sfml()
 {
 	sf::Event event;
-	if(m_window.pollEvent(event))
+	while(m_window.pollEvent(event))
 	{
 		if(event.type == sf::Event::Closed)
 		{
