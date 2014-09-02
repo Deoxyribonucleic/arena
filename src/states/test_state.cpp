@@ -4,14 +4,18 @@
 #include "events/death_event.hpp"
 #include "events/collision_event.hpp"
 #include "game/game.hpp"
+#include "events/sfml_event.hpp"
 
 #include <components/bounding_box_component.hpp>
 #include <components/position_component.hpp>
 #include <components/render_component.hpp>
 #include <components/controller_component.hpp>
 #include <components/health_component.hpp>
+#include <components/spell_component.hpp>
 
 #include <SFML/Window.hpp>
+
+#include <glm/glm.hpp>
 
 #include <chrono>
 
@@ -29,12 +33,28 @@ m_collision_system(m_game, m_entities),
 m_controller_system(m_game, m_entities),
 m_movement_system(m_game),
 m_despawn_system(m_entities),
+m_spell_system(m_game, m_entities),
 m_player_system(m_game, m_entities),
-m_projectile_system(m_game, m_entities)
+m_projectile_system(m_game, m_entities),
+m_ball(m_game.get_asset_loader(), sf::Color(0, 255, 0), 1, 0),
+m_explosion(m_game.get_asset_loader(), sf::Color(0, 255, 0), 36, 10)
 {
 	m_debug_info_system.set_font(m_game.get_asset_loader().get_font(fonts::base));
-	m_entities.add_entity(m_player_factory.create(1, 0));
-	m_entities.add_entity(m_player_factory.create(2, 1));
+
+	auto player = m_player_factory.create(1, 0, glm::vec2(400, 400));
+	m_entities.add_entity(player);
+	m_entities.add_entity(m_player_factory.create(2, 1, glm::vec2(900, 400)));
+
+	m_ball.set_next_element(m_explosion);
+	m_ball.enable_trigger(spell_triggers::hit_player);
+
+	m_test_spell.set_first_element(m_ball);
+
+	m_game.get_event_dispatcher().add_event_handler<sfml_event>([this, player](const sfml_event& event)
+	{
+		if(event.get_event().type == sf::Event::KeyReleased)
+			m_test_spell.first().spawn(m_entities, player);
+	});
 }
 
 test_state::~test_state()
@@ -50,6 +70,7 @@ void test_state::update(bool)
 	m_death_system.update(m_entities);
 	m_player_system.update(m_entities);
 	m_projectile_system.update(m_entities);
+	m_spell_system.update(m_entities);
 }
 
 void test_state::render(bool)

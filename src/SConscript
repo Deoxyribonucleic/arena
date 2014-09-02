@@ -9,6 +9,9 @@ factories/projectile_factory.cpp
 game/game.cpp
 game/state.cpp
 game/state_stack.cpp
+spells/spell.cpp
+spells/spell_element.cpp
+spells/elements/projectile_element.cpp
 states/test_state.cpp
 systems/collision_system.cpp
 systems/controller_system.cpp
@@ -17,6 +20,7 @@ systems/debug_info_system.cpp
 systems/despawn_system.cpp
 systems/movement_system.cpp
 systems/render_system.cpp
+systems/spell_system.cpp
 systems/player_system.cpp
 systems/projectile_system.cpp
 """)

@@ -1,6 +1,9 @@
 #pragma once
 
 #include "game/state.hpp"
+#include "spells/elements/projectile_element.hpp"
+#include "spells/spell.hpp"
+#include "spells/spell_element.hpp"
 #include "factories/player_factory.hpp"
 #include "systems/render_system.hpp"
 #include "systems/collision_system.hpp"
@@ -9,6 +12,7 @@
 #include "systems/debug_info_system.hpp"
 #include "systems/despawn_system.hpp"
 #include "systems/death_system.hpp"
+#include "systems/spell_system.hpp"
 #include "systems/player_system.hpp"
 #include "systems/projectile_system.hpp"
 
@@ -32,6 +36,9 @@ namespace game
 
 		player_factory m_player_factory;
 
+		projectile_element m_ball, m_explosion;
+		spell m_test_spell;
+
 		dawn::entity_list m_entities;
 
 		collision_system m_collision_system;
@@ -43,5 +50,6 @@ namespace game
 		render_system m_renderer;
 		player_system m_player_system;
 		projectile_system m_projectile_system;
+		spell_system m_spell_system;
 	};
 }

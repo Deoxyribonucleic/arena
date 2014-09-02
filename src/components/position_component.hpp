@@ -1,8 +1,8 @@
 #pragma once
 
-#include <dawn/ecs/component.hpp>
+#include "util/math.hpp"
 
-#include <glm/glm.hpp>
+#include <dawn/ecs/component.hpp>
 
 
 namespace game

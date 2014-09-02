@@ -1,5 +1,7 @@
 #pragma once
 
+#include "spell_triggers.hpp"
+
 #include <dawn/ecs/entity.hpp>
 #include <dawn/ecs/entity_list.hpp>
 
@@ -11,9 +13,28 @@ namespace game
 	class spell_element
 	{
 	public:
+		spell_element(spell_triggers_field spell_triggers);
 		virtual ~spell_element();
 
-		void spawn(dawn::entity_list& entities);
+		virtual void spawn(dawn::entity_list& entities, dawn::entity::ptr origin) = 0;
+
+		void enable_trigger(spell_trigger trigger);
+		bool trigger_is_enabled(spell_trigger trigger);
+
+		void add_next_element(std::unique_ptr<spell_element>& element);
+		spell_element* next();
+
+		void set_next_element(spell_element& element);
+
+	protected:
+		bool m_survive_trigger_count;
+
+	private:
+		//std::vector<std::unique_ptr<spell_element>> m_next_elements;
+		spell_element* m_next_element;
+
+		spell_triggers_field m_triggers;
 	};
-	typedef std::vector<std::unique<spell_element>> spell_element_chain;
+
+	typedef std::vector<std::unique_ptr<spell_element>> spell_element_chain;
 }
