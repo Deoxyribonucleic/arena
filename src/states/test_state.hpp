@@ -1,10 +1,12 @@
 #pragma once
 
+#include "factories/player_factory.hpp"
 #include "game/state.hpp"
+#include "particles/particle_controller.hpp"
+#include "particles/particle_renderer.hpp"
 #include "spells/elements/projectile_element.hpp"
 #include "spells/spell.hpp"
 #include "spells/spell_element.hpp"
-#include "factories/player_factory.hpp"
 #include "systems/render_system.hpp"
 #include "systems/collision_system.hpp"
 #include "systems/controller_system.hpp"
@@ -13,8 +15,7 @@
 #include "systems/despawn_system.hpp"
 #include "systems/death_system.hpp"
 #include "systems/spell_system.hpp"
-#include "systems/particle_render_system.hpp"
-#include "systems/particle_system.hpp"
+#include "systems/particle_emitter_system.hpp"
 #include "systems/player_system.hpp"
 #include "systems/projectile_system.hpp"
 
@@ -47,10 +48,13 @@ namespace game
 		despawn_system m_despawn_system;
 		movement_system m_movement_system;
 		render_system m_renderer;
-		particle_render_system m_particle_render_system;
-		particle_system m_particle_system;
+		particle_emitter_system m_particle_emitter_system;
 		player_system m_player_system;
 		projectile_system m_projectile_system;
 		spell_system m_spell_system;
+
+		particle_list m_particles;
+		particle_controller m_particle_controller;
+		particle_renderer m_particle_renderer;
 	};
 }

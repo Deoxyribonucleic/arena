@@ -36,7 +36,7 @@ namespace game
 			m_test_spell.add_spell_element(explosion);
 
 			m_test_spell.get_spell_element(0).add_next_element(m_test_spell.get_spell_element(1));
-			m_test_spell.get_spell_element(0).add_next_element(m_test_spell.get_spell_element(2));
+		//	m_test_spell.get_spell_element(0).add_next_element(m_test_spell.get_spell_element(2));
 			m_test_spell.get_spell_element(1).add_next_element(m_test_spell.get_spell_element(1));
 			m_test_spell.get_spell_element(1).add_next_element(m_test_spell.get_spell_element(2));
 

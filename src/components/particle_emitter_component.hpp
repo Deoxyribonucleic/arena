@@ -38,11 +38,11 @@ namespace game
 		{}
 
 		particle_emitter_component(
-			const particle_emitter<sf::RectangleShape>& emitter
+			const particle_emitter& emitter
 		)
 		: emitter(emitter)
 		{}
 
-		particle_emitter<sf::RectangleShape> emitter;
+		particle_emitter emitter;
 	};
 }

@@ -9,6 +9,8 @@ factories/projectile_factory.cpp
 game/game.cpp
 game/state.cpp
 game/state_stack.cpp
+particles/particle_controller.cpp
+particles/particle_renderer.cpp
 spells/spell.cpp
 spells/spell_element.cpp
 spells/elements/particle_element.cpp
@@ -22,8 +24,7 @@ systems/despawn_system.cpp
 systems/movement_system.cpp
 systems/render_system.cpp
 systems/spell_system.cpp
-systems/particle_render_system.cpp
-systems/particle_system.cpp
+systems/particle_emitter_system.cpp
 systems/player_system.cpp
 systems/projectile_system.cpp
 """)

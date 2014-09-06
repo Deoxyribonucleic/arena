@@ -32,6 +32,6 @@ namespace game
 
 	private:
 		dawn::time::duration m_lifetime;
-		particle_emitter<sf::RectangleShape> m_emitter;
+		particle_emitter m_emitter;
 	};
 }

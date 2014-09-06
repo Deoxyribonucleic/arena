@@ -16,7 +16,6 @@
 
 namespace game
 {
-	template <typename particle_shape>
 	class particle_emitter
 	{
 	public:
@@ -35,7 +34,6 @@ namespace game
 			dawn::entity::ptr follow = nullptr
 		)
 		:
-		m_shape(sf::Vector2f(1, 1)),
 		m_color_start(color_start),
 		m_color_end(color_end),
 		m_target_color(target_color),
@@ -52,7 +50,7 @@ namespace game
 		{
 		}
 
-		void update(float delta_time, const glm::vec2& where)
+		void update(float delta_time, const glm::vec2& where, particle_list& particles)
 		{
 			auto now = dawn::time::clock::now();
 
@@ -68,59 +66,18 @@ namespace game
 
 				auto follow = m_follow.lock();
 
-				m_particles.push_back(particle{
+				particles.push_back(particle{
 					get_color(),
+					m_target_color,
 					get_size(),
 					particle_rotation,
+					m_friction,
 					(follow ? glm::vec2{0, 0} : where),
 					glm::vec2{ glm::cos(glm::radians(particle_angle)), glm::sin(glm::radians(particle_angle)) } * m_speed,
-					now + m_lifetime
+					m_lifetime,
+					now + m_lifetime,
+					(follow ? follow : nullptr)
 				});
-			}
-
-			// update particle positions
-			//for(auto& particle: m_particles)
-			for(int i = m_particles.size() - 1; i >= 0; --i)
-			{
-				auto& particle = m_particles[i];
-
-				if(now > particle.expire_at)
-				{
-					m_particles.erase(m_particles.begin() + i);
-					continue;
-				}
-
-				particle.position += particle.velocity * delta_time;
-
-				if(glm::length(particle.velocity) != 0.0)
-					particle.velocity -= glm::normalize(particle.velocity) * std::min(m_friction * delta_time, glm::length(particle.velocity));
-			}
-		}
-
-		void draw(sf::RenderWindow& render_target)
-		{
-			auto now = dawn::time::clock::now();
-
-			for(auto& particle: m_particles)
-			{
-				m_shape.setScale(particle.size, particle.size);
-				m_shape.setRotation(particle.rotation);
-
-				glm::vec3 effective_color = particle.color + (1.0f - (float)(particle.expire_at - now).count() / (float)m_lifetime.count()) * (m_target_color - particle.color);
-				m_shape.setFillColor(sf::Color(effective_color.r, effective_color.g, effective_color.b));
-
-				dawn::entity::ptr follow;
-				if(follow = m_follow.lock())
-				{
-					auto position = follow->get_component<position_component>().position;
-					m_shape.setPosition(particle.position.x + position.x, particle.position.y + position.y);
-				}
-				else
-				{
-					m_shape.setPosition(particle.position.x, particle.position.y);
-				}
-
-				render_target.draw(m_shape);
 			}
 		}
 
@@ -141,7 +98,6 @@ namespace game
 		}
 
 	private:
-		particle_shape m_shape;
 		glm::vec3 m_color_start, m_color_end;
 		glm::vec3 m_target_color;
 		float m_size_start, m_size_end;
@@ -155,7 +111,5 @@ namespace game
 		float m_time_since_last;
 
 		std::weak_ptr<dawn::entity> m_follow;
-
-		std::vector<particle> m_particles;
 	};
 }

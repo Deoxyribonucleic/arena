@@ -30,11 +30,11 @@ debug_info_system::debug_info_system(game& game, sf::RenderWindow& render_target
 void debug_info_system::update_entity(dawn::entity::ptr entity)
 {
 	auto& position = entity->get_component<position_component>().position;
-	int playerNumber = entity->get_component<player_component>().id;
+	int player_number = entity->get_component<player_component>().id;
 	auto& orientation = entity->get_component<orientation_component>();
-	//int playerHealth = entity->get_component<health_component>().health;
+	int player_health = entity->get_component<health_component>().health;
 
-	print_line("Player #" + std::to_string(playerNumber));
+	print_line("Player #" + std::to_string(player_number) + " - " + std::to_string(player_health) + " HP");
 	print_line(" * position: " + std::to_string(position.x) + ", " + std::to_string(position.y));
 	print_line(" * orientation: " + std::to_string(orientation.get_degrees()));
 }
