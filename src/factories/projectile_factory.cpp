@@ -9,6 +9,7 @@
 #include "components/player_component.hpp"
 #include "components/lifetime_component.hpp"
 #include "components/orientation_component.hpp"
+#include "components/particle_emitter_component.hpp"
 #include "components/projectile_component.hpp"
 
 #include <cassert>
@@ -29,12 +30,21 @@ dawn::entity::ptr projectile_factory::create(dawn::entity::ptr shooter, glm::vec
 	dawn::entity::ptr entity(new dawn::entity);
 
 	entity->add_component<position_component>(shooter->get_component<position_component>().position + direction * 50.f);
-	entity->add_component<movement_component>(direction * 500.f, 0.0, 500.0, 0.0);
+	entity->add_component<movement_component>(direction * 500.f + shooter->get_component<movement_component>().velocity, 0.0, 500.0, 0.0);
 	entity->add_component<orientation_component>(direction);
-	entity->add_component<render_component>(m_loader.get_sprite(sprites::projectile));
+	//entity->add_component<render_component>(m_loader.get_sprite(sprites::projectile), sf::Color::Blue);
 	entity->add_component<lifetime_component>(std::chrono::seconds(2));
 	entity->add_component<collision_component>();
 	entity->add_component<projectile_component>();
+	entity->add_component<particle_emitter_component>(
+		glm::vec3{200.f, 0.f, 0.f},
+		glm::vec3{240.f, 180.f, 0.f},
+		10.f, 20.f,
+		200.f,
+		360.f,
+		glm::vec2{1.f, 0.f},
+		70.0f,
+		std::chrono::milliseconds(1500));
 
 	return entity;
 }

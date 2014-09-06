@@ -34,6 +34,8 @@ m_controller_system(m_game, m_entities),
 m_movement_system(m_game),
 m_despawn_system(m_entities),
 m_spell_system(m_game, m_entities),
+m_particle_render_system(m_game),
+m_particle_system(m_game),
 m_player_system(m_game, m_entities),
 m_projectile_system(m_game, m_entities)
 {
@@ -61,6 +63,7 @@ void test_state::update(bool)
 	m_movement_system.update(m_entities);
 	m_collision_system.update(m_entities);
 	m_death_system.update(m_entities);
+	m_particle_system.update(m_entities);
 	m_player_system.update(m_entities);
 	m_projectile_system.update(m_entities);
 	m_spell_system.update(m_entities);
@@ -70,6 +73,7 @@ void test_state::render(bool)
 {
 	m_game.get_application().get_window().clear(sf::Color(40, 40, 40));
 
+	m_particle_render_system.update(m_entities);
 	m_renderer.update(m_entities);
 	m_debug_info_system.update(m_entities);
 

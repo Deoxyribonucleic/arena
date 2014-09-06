@@ -7,6 +7,7 @@
 #include "components/position_component.hpp"
 #include "components/render_component.hpp"
 #include "components/player_component.hpp"
+#include "components/particle_emitter_component.hpp"
 #include "components/health_component.hpp"
 #include "components/orientation_component.hpp"
 
@@ -47,6 +48,17 @@ dawn::entity::ptr player_factory::create(int number, int controller_id, const gl
 	entity->add_component<movement_component>(glm::vec2(0, 0), 200.0, 1800.0, 800.0);
 	entity->add_component<bounding_box_component>(64, 64);
 	entity->add_component<render_component>(m_loader.get_sprite(sprites::player), player_color);
+	entity->add_component<particle_emitter_component>(
+		glm::vec3{0.f, 0.f, 0.f},
+		glm::vec3{255.f, 255.f, 255.f},
+		1.f, 2.f,
+		200.f,
+		360.f,
+		glm::vec2{1.f, 0.f},
+		70.0f,
+		std::chrono::milliseconds(4000),
+		entity);
+	//entity->add_component<particle_emitter_component>();
 
 	return entity;
 }

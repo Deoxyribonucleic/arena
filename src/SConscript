@@ -21,6 +21,8 @@ systems/despawn_system.cpp
 systems/movement_system.cpp
 systems/render_system.cpp
 systems/spell_system.cpp
+systems/particle_render_system.cpp
+systems/particle_system.cpp
 systems/player_system.cpp
 systems/projectile_system.cpp
 """)

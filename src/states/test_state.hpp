@@ -13,6 +13,8 @@
 #include "systems/despawn_system.hpp"
 #include "systems/death_system.hpp"
 #include "systems/spell_system.hpp"
+#include "systems/particle_render_system.hpp"
+#include "systems/particle_system.hpp"
 #include "systems/player_system.hpp"
 #include "systems/projectile_system.hpp"
 
@@ -45,6 +47,8 @@ namespace game
 		despawn_system m_despawn_system;
 		movement_system m_movement_system;
 		render_system m_renderer;
+		particle_render_system m_particle_render_system;
+		particle_system m_particle_system;
 		player_system m_player_system;
 		projectile_system m_projectile_system;
 		spell_system m_spell_system;
