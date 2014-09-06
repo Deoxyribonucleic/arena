@@ -20,7 +20,7 @@ m_last_update(dawn::time::clock::now())
 {
 	m_app.get_scheduler().schedule_task(std::chrono::milliseconds(1000/60),
 		std::bind(&game::game::update, this), true);
-	m_app.get_scheduler().schedule_task(std::chrono::milliseconds(1000/60),
+	m_app.get_scheduler().schedule_task(std::chrono::milliseconds(1000/1000),
 		std::bind(&game::game::render, this), true);
 
 	m_loader.add_font(fonts::base, "fonts/UbuntuMono-Regular.ttf");
