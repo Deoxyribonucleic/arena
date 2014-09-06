@@ -16,27 +16,29 @@ namespace game
 	public:
 		player_component(int id, asset_loader& loader, sf::Color color) : id(id)
 		{
+			glm::vec3 glm_color(color.r, color.g, color.b);
+
 			std::unique_ptr<spell_element> ball(new projectile_element(loader, color, 1, 0));
 			std::unique_ptr<spell_element> split(new projectile_element(loader, color, 2, 180));
 			std::unique_ptr<spell_element> explosion(new particle_element(
-				std::chrono::milliseconds(2000),
-				glm::vec3{0.f, 0.f, 0.f},
-				glm::vec3{255.f, 255.f, 255.f},
-				glm::vec3{255.f, 255.f, 255.f},
-				1.f, 10.f,
-				200.f,
+				std::chrono::milliseconds(100),
+				glm_color / 2.0f,
+				glm_color,
+				glm::vec3{40, 40, 40},
+				30.f, 40.f,
+				1000.f,
 				360.f,
 				glm::vec2{1.f, 0.f},
 				400.0f,
-				30.0f,
-				std::chrono::milliseconds(1000)));
+				400.0f,
+				std::chrono::milliseconds(800)));
 
 			m_test_spell.add_spell_element(ball);
 			m_test_spell.add_spell_element(split);
 			m_test_spell.add_spell_element(explosion);
 
-			m_test_spell.get_spell_element(0).add_next_element(m_test_spell.get_spell_element(1));
-		//	m_test_spell.get_spell_element(0).add_next_element(m_test_spell.get_spell_element(2));
+			//m_test_spell.get_spell_element(0).add_next_element(m_test_spell.get_spell_element(1));
+			m_test_spell.get_spell_element(0).add_next_element(m_test_spell.get_spell_element(2));
 			m_test_spell.get_spell_element(1).add_next_element(m_test_spell.get_spell_element(1));
 			m_test_spell.get_spell_element(1).add_next_element(m_test_spell.get_spell_element(2));
 
