@@ -68,7 +68,6 @@ namespace game
 
 				particles.push_back(particle{
 					get_color(),
-					m_target_color,
 					get_size(),
 					particle_rotation,
 					m_friction,

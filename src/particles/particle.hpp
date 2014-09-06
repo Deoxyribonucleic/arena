@@ -16,7 +16,6 @@ namespace game
 	struct particle
 	{
 		glm::vec3 color;
-		glm::vec3 target_color;
 		float size;
 		float rotation;
 		float friction;

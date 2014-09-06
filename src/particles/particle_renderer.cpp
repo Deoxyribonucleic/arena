@@ -20,8 +20,8 @@ void particle_renderer::render(sf::RenderWindow& render_target, const particle_l
 		m_shape.setScale(particle.size, particle.size);
 		m_shape.setRotation(particle.rotation);
 
-		glm::vec3 effective_color = particle.color + (1.0f - (float)(particle.expire_at - now).count() / (float)particle.lifetime.count()) * (particle.target_color - particle.color);
-		m_shape.setFillColor(sf::Color(effective_color.r, effective_color.g, effective_color.b));
+		//glm::vec3 effective_color = particle.color + (1.0f - (float)(particle.expire_at - now).count() / (float)particle.lifetime.count()) * (particle.target_color - particle.color);
+		m_shape.setFillColor(sf::Color(particle.color.r, particle.color.g, particle.color.b, std::abs(((float)(particle.expire_at - now).count() / (float)particle.lifetime.count()) * 255.0f)));
 
 		dawn::entity::ptr origin;
 		if(origin = particle.origin.lock())
