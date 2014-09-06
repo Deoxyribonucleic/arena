@@ -52,6 +52,7 @@ void projectile_element::spawn(dawn::entity_list& entities, dawn::entity::ptr or
 				180.f,
 				360.f,
 				glm::vec2{1.0f, 0.0f},
+				100.0f,
 				80.0f,
 				std::chrono::seconds(1)
 			);

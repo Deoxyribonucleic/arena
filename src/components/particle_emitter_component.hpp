@@ -18,6 +18,7 @@ namespace game
 			float frequency,
 			float cone_size,
 			const glm::vec2& direction,
+			float speed,
 			float friction,
 			dawn::time::duration lifetime,
 			dawn::entity::ptr follow = nullptr
@@ -29,10 +30,17 @@ namespace game
 			frequency,
 			cone_size,
 			direction,
+			speed,
 			friction,
 			lifetime,
 			follow
 		)
+		{}
+
+		particle_emitter_component(
+			const particle_emitter<sf::RectangleShape>& emitter
+		)
+		: emitter(emitter)
 		{}
 
 		particle_emitter<sf::RectangleShape> emitter;

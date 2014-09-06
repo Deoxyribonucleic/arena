@@ -44,6 +44,7 @@ dawn::entity::ptr projectile_factory::create(dawn::entity::ptr shooter, glm::vec
 		200.f,
 		360.f,
 		glm::vec2{1.f, 0.f},
+		100.0f,
 		70.0f,
 		std::chrono::milliseconds(1500));
 

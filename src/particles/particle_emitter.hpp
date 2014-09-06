@@ -29,6 +29,7 @@ namespace game
 			float frequency,
 			float cone_size,
 			const glm::vec2& direction,
+			float speed,
 			float friction,
 			dawn::time::duration lifetime,
 			dawn::entity::ptr follow = nullptr
@@ -43,6 +44,7 @@ namespace game
 		m_interval(1.0f / frequency),
 		m_cone_size(cone_size),
 		m_direction(direction),
+		m_speed(speed),
 		m_friction(friction),
 		m_time_since_last(0.f),
 		m_lifetime(lifetime),
@@ -71,7 +73,7 @@ namespace game
 					get_size(),
 					particle_rotation,
 					(follow ? glm::vec2{0, 0} : where),
-					glm::vec2{ glm::cos(glm::radians(particle_angle)), glm::sin(glm::radians(particle_angle)) } * 100.0f,
+					glm::vec2{ glm::cos(glm::radians(particle_angle)), glm::sin(glm::radians(particle_angle)) } * m_speed,
 					now + m_lifetime
 				});
 			}
@@ -146,6 +148,7 @@ namespace game
 		float m_interval;
 		float m_cone_size;
 		glm::vec2 m_direction;
+		float m_speed;
 		float m_friction;
 		dawn::time::duration m_lifetime;
 

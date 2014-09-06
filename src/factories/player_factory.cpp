@@ -56,6 +56,7 @@ dawn::entity::ptr player_factory::create(int number, int controller_id, const gl
 		200.f,
 		360.f,
 		glm::vec2{1.f, 0.f},
+		100.0f,
 		70.0f,
 		std::chrono::milliseconds(4000),
 		entity);
