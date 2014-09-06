@@ -1,3 +1,5 @@
+#pragma once
+
 #include "spells/spell_element.hpp"
 
 #include <dawn/ecs/entity.hpp>

@@ -39,7 +39,7 @@ dawn::entity::ptr player_factory::create(int number, int controller_id, const gl
 			break;
 	}
 
-	entity->add_component<player_component>(number);
+	entity->add_component<player_component>(number, m_loader, player_color);
 	entity->add_component<controller_component>(controller_id);
 	entity->add_component<health_component>(40);
 	entity->add_component<orientation_component>(glm::vec2(1, 0));

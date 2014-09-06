@@ -36,9 +36,6 @@ namespace game
 
 		player_factory m_player_factory;
 
-		projectile_element m_ball, m_explosion;
-		spell m_test_spell;
-
 		dawn::entity_list m_entities;
 
 		collision_system m_collision_system;

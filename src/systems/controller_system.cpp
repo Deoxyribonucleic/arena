@@ -2,6 +2,7 @@
 
 #include "components/movement_component.hpp"
 #include "components/orientation_component.hpp"
+#include "components/player_component.hpp"
 #include "components/controller_component.hpp"
 #include "events/sfml_event.hpp"
 #include "game/game.hpp"
@@ -27,9 +28,12 @@ controller_system::controller_system(game& game, dawn::entity_list& entities)
 {
 	set_event_handler<sfml_event>(m_game.get_event_dispatcher(), [this](dawn::entity::ptr entity, sfml_event const& event)
 		{
+			auto& player = entity->get_component<player_component>();
+
 			if(event.get_event().type == sf::Event::JoystickButtonReleased && event.get_event().joystickButton.joystickId == entity->get_component<controller_component>().controller_id)
 			{
-				m_entities.add_entity(m_projectile_factory.create(entity, entity->get_component<orientation_component>().orientation));
+				//m_entities.add_entity(m_projectile_factory.create(entity, entity->get_component<orientation_component>().orientation));
+				player.m_test_spell.first().spawn(m_entities, entity);
 			}
 		});
 }

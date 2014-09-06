@@ -35,9 +35,7 @@ m_movement_system(m_game),
 m_despawn_system(m_entities),
 m_spell_system(m_game, m_entities),
 m_player_system(m_game, m_entities),
-m_projectile_system(m_game, m_entities),
-m_ball(m_game.get_asset_loader(), sf::Color(0, 255, 0), 1, 0),
-m_explosion(m_game.get_asset_loader(), sf::Color(0, 255, 0), 36, 10)
+m_projectile_system(m_game, m_entities)
 {
 	m_debug_info_system.set_font(m_game.get_asset_loader().get_font(fonts::base));
 
@@ -45,16 +43,11 @@ m_explosion(m_game.get_asset_loader(), sf::Color(0, 255, 0), 36, 10)
 	m_entities.add_entity(player);
 	m_entities.add_entity(m_player_factory.create(2, 1, glm::vec2(900, 400)));
 
-	m_ball.set_next_element(m_explosion);
-	m_ball.enable_trigger(spell_triggers::hit_player);
-
-	m_test_spell.set_first_element(m_ball);
-
-	m_game.get_event_dispatcher().add_event_handler<sfml_event>([this, player](const sfml_event& event)
+	/*m_game.get_event_dispatcher().add_event_handler<sfml_event>([this, player](const sfml_event& event)
 	{
 		if(event.get_event().type == sf::Event::KeyReleased)
 			m_test_spell.first().spawn(m_entities, player);
-	});
+	});*/
 }
 
 test_state::~test_state()
