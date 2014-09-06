@@ -10,6 +10,7 @@
 #include "components/lifetime_component.hpp"
 #include "components/orientation_component.hpp"
 #include "components/spell_component.hpp"
+#include "components/particle_emitter_component.hpp"
 #include "components/projectile_component.hpp"
 
 
@@ -38,11 +39,21 @@ void projectile_element::spawn(dawn::entity_list& entities, dawn::entity::ptr or
 		entity->add_component<position_component>(origin->get_component<position_component>().position + direction * 100.f);
 		entity->add_component<movement_component>(direction * 500.f, 0.0, 500.0, 0.0);
 		entity->add_component<orientation_component>(direction);
-		entity->add_component<render_component>(m_loader.get_sprite(sprites::projectile), m_color);
+		//entity->add_component<render_component>(m_loader.get_sprite(sprites::projectile), m_color);
 		entity->add_component<lifetime_component>(std::chrono::seconds(2));
 		entity->add_component<collision_component>();
 		entity->add_component<projectile_component>();
 		entity->add_component<spell_component>(*this);
+		entity->add_component<particle_emitter_component>(
+				glm::vec3(m_color.r, m_color.g, m_color.b) / 2.0f,
+				glm::vec3(m_color.r, m_color.g, m_color.b),
+				10.0f, 20.0f,
+				180,
+				360,
+				glm::vec2{1.0f, 0.0f},
+				80.0f,
+				std::chrono::seconds(2)
+			);
 
 		entities.add_entity(entity);
 	}
