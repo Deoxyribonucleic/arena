@@ -13,6 +13,7 @@ namespace game
 		particle_emitter_component(
 			const glm::vec3& color_start,
 			const glm::vec3& color_end,
+			const glm::vec3& target_color,
 			float size_start, float size_end,
 			float frequency,
 			float cone_size,
@@ -23,6 +24,7 @@ namespace game
 		) :
 		emitter(
 			color_start, color_end,
+			target_color,
 			size_start, size_end,
 			frequency,
 			cone_size,

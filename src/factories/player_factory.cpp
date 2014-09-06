@@ -51,6 +51,7 @@ dawn::entity::ptr player_factory::create(int number, int controller_id, const gl
 	entity->add_component<particle_emitter_component>(
 		glm::vec3{0.f, 0.f, 0.f},
 		glm::vec3{255.f, 255.f, 255.f},
+		glm::vec3{255.f, 255.f, 255.f},
 		1.f, 2.f,
 		200.f,
 		360.f,

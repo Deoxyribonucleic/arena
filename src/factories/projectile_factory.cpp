@@ -39,6 +39,7 @@ dawn::entity::ptr projectile_factory::create(dawn::entity::ptr shooter, glm::vec
 	entity->add_component<particle_emitter_component>(
 		glm::vec3{200.f, 0.f, 0.f},
 		glm::vec3{240.f, 180.f, 0.f},
+		glm::vec3{40.f, 40.f, 40.f},
 		10.f, 20.f,
 		200.f,
 		360.f,

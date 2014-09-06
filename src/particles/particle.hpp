@@ -11,7 +11,7 @@ namespace game
 {
 	struct particle
 	{
-		sf::Color color;
+		glm::vec3 color;
 		float size;
 		float rotation;
 		glm::vec2 position, velocity;

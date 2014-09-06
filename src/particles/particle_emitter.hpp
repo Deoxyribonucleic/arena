@@ -23,6 +23,7 @@ namespace game
 		particle_emitter(
 			const glm::vec3& color_start,
 			const glm::vec3& color_end,
+			const glm::vec3& target_color,
 			float size_start,
 			float size_end,
 			float frequency,
@@ -36,6 +37,7 @@ namespace game
 		m_shape(sf::Vector2f(1, 1)),
 		m_color_start(color_start),
 		m_color_end(color_end),
+		m_target_color(target_color),
 		m_size_start(size_start),
 		m_size_end(size_end),
 		m_interval(1.0f / frequency),
@@ -95,11 +97,15 @@ namespace game
 
 		void draw(sf::RenderWindow& render_target)
 		{
+			auto now = dawn::time::clock::now();
+
 			for(auto& particle: m_particles)
 			{
 				m_shape.setScale(particle.size, particle.size);
 				m_shape.setRotation(particle.rotation);
-				m_shape.setFillColor(particle.color);
+
+				glm::vec3 effective_color = particle.color + (1.0f - (float)(particle.expire_at - now).count() / (float)m_lifetime.count()) * (m_target_color - particle.color);
+				m_shape.setFillColor(sf::Color(effective_color.r, effective_color.g, effective_color.b));
 
 				dawn::entity::ptr follow;
 				if(follow = m_follow.lock())
@@ -117,14 +123,14 @@ namespace game
 		}
 
 	protected:
-		virtual sf::Color get_color() const
+		virtual glm::vec3 get_color() const
 		{
 			//return sf::Color(0, 0, 80);//sf::Color::Blue;
 			glm::vec3 step = (m_color_end - m_color_start) / 4.0f;
 			float color_number = rand() % 5;
 
-			glm::vec3 selected_color = m_color_start + step * color_number;
-			return sf::Color(selected_color.r, selected_color.g, selected_color.b);
+		 	return m_color_start + step * color_number;
+			//return sf::Color(selected_color.r, selected_color.g, selected_color.b);
 		}
 
 		virtual float get_size() const
@@ -135,6 +141,7 @@ namespace game
 	private:
 		particle_shape m_shape;
 		glm::vec3 m_color_start, m_color_end;
+		glm::vec3 m_target_color;
 		float m_size_start, m_size_end;
 		float m_interval;
 		float m_cone_size;
