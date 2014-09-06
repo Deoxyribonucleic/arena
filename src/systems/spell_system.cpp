@@ -33,17 +33,12 @@ void spell_system::on_collision(const collision_event& event)
 	if(event.collider->has_component<spell_component>())
 	{
 		auto& stage = event.collider->get_component<spell_component>().stage;
-		auto next_stage = stage.next();
-
 		//if(stage.get().trigger_is_enabled())
 		{
 			std::cout << "Spell collided and triggered" << std::endl;
 
-			if(next_stage)
-			{
-				std::cout << "Next stage spawned" << std::endl;
-				next_stage->spawn(m_entities, event.collider);
-			}
+			std::cout << "Next stage spawned" << std::endl;
+			stage.spawn_next(m_entities, event.collider);
 		}
 	}
 }

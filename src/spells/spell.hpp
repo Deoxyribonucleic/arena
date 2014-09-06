@@ -11,11 +11,12 @@ namespace game
 	{
 	public:
 		spell();
-		void set_first_element(spell_element& element);
-
 		spell_element& first();
 
+		spell_element& get_spell_element(int index);
+	 	spell_element& add_spell_element(std::unique_ptr<spell_element>& element);
+
 	private:
-		spell_element* m_first_element;
+		std::vector<std::unique_ptr<spell_element>> m_spell_elements;
 	};
 }

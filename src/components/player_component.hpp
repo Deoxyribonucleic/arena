@@ -13,21 +13,25 @@ namespace game
 	class player_component : public dawn::component
 	{
 	public:
-		player_component(int id, asset_loader& loader, sf::Color color) : id(id),
-			m_ball(loader, color, 1, 0),
-			m_explosion(loader, color, 36, 10)
+		player_component(int id, asset_loader& loader, sf::Color color) : id(id)
 		{
-			m_ball.set_next_element(m_explosion);
-			m_explosion.set_next_element(m_explosion);
-			m_ball.enable_trigger(spell_triggers::hit_player);
+			std::unique_ptr<spell_element> ball(new projectile_element(loader, color, 1, 0));
+			std::unique_ptr<spell_element> explosion(new projectile_element(loader, color, 2, 180));
 
-			m_test_spell.set_first_element(m_ball);
+			m_test_spell.add_spell_element(ball);
+			m_test_spell.add_spell_element(explosion);
+
+			m_test_spell.get_spell_element(0).add_next_element(m_test_spell.get_spell_element(1));
+			m_test_spell.get_spell_element(1).add_next_element(m_test_spell.get_spell_element(1));
+
+			//m_ball.enable_trigger(spell_triggers::hit_player);
+			//m_
+
+			//m_test_spell.set_first_element(m_ball);
 		}
 
 		int id;
 
-		projectile_element m_ball, m_explosion;
 		spell m_test_spell;
-
 	};
 }
