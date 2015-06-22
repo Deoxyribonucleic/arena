@@ -21,11 +21,14 @@ m_entities(entities)
 
 void projectile_system::on_collision(dawn::entity::ptr entity, const collision_event& event)
 {
-	if(event.collider == entity && event.collidee->has_component<health_component>())
+	if(event.collider == entity)
 	{
-		event.collidee->get_component<health_component>().health -= 5;
+		if(event.collidee->has_component<health_component>())
+			event.collidee->get_component<health_component>().health -= 5;
+
 		m_entities.remove_entity(entity);
 	}
+
 }
 
 void projectile_system::update_entity(dawn::entity::ptr entity)

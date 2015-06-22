@@ -27,9 +27,9 @@ collision_system::collision_system(game& game, dawn::entity_list& entities)
 void collision_system::update_entity(dawn::entity::ptr entity)
 {
 	m_entities.foreach(
-		[](dawn::entity::ptr entity)
+		[&entity](dawn::entity::ptr other_entity)
 		{
-			return entity->has_component<position_component>() && entity->has_component<bounding_box_component>();
+			return entity != other_entity && other_entity->has_component<position_component>() && other_entity->has_component<bounding_box_component>();
 		},
 		[entity, this](dawn::entity::ptr other_entity)
 		{

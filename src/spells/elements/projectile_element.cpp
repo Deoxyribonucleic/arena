@@ -8,6 +8,7 @@
 #include "components/render_component.hpp"
 #include "components/player_component.hpp"
 #include "components/lifetime_component.hpp"
+#include "components/bounding_box_component.hpp"
 #include "components/orientation_component.hpp"
 #include "components/spell_component.hpp"
 #include "components/particle_emitter_component.hpp"
@@ -43,6 +44,7 @@ void projectile_element::spawn(dawn::entity_list& entities, dawn::entity::ptr or
 		entity->add_component<lifetime_component>(std::chrono::seconds(5));
 		entity->add_component<collision_component>();
 		entity->add_component<projectile_component>();
+		entity->add_component<bounding_box_component>(64, 64);
 		entity->add_component<spell_component>(*this);
 		entity->add_component<particle_emitter_component>(
 				glm::vec3(m_color.r, m_color.g, m_color.b) / 2.0f,
